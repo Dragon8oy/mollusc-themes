@@ -11,19 +11,25 @@ buildPackage() {
     echo "Sed not installed or not in path, please correct the error and try again"
   fi
 
+  echo "Enter the name / relative path to yaru:"
+  read yaruFile
+  if ! ls "$yaruFile" > /dev/null 2>&1; then
+    echo "$yaruFile not found"
+    exit
+  fi
+
   if which dpkg > /dev/null 2>&1; then
-    #Setup package structure
-    #componentPath="debian/usr/share/"
+    molluscPath="debian/usr/share/mollusc-themes"
     mkdir -v debian/usr/
     mkdir -v debian/usr/bin/
+    mkdir -v debian/usr/share/
+    mkdir -v debian/usr/share/mollusc-themes/
 
     #Make update-themes executable
     chmod -v +x update-themes
 
-    #Copy files into directories using componentPath
-    cp -v component $componentPath/
-
     cp -v update-themes debian/usr/bin/
+    cp -v "$yaruFile" "$molluscPath"
 
     #Build the package and rename
     dpkg --build debian/ && mv debian.deb ./mollusc-themes_all.deb
