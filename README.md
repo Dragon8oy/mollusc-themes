@@ -1,5 +1,5 @@
 # mollusc-themes
- - A collection of customised themes, packaged as .debs with updaters
+ - A collection of customised themes, packaged as .debs
  - If you have an issue, please file a bug report under [Issues](https://github.com/Dragon8oy/mollusc-themes/issues "Issues")
  - GitHub Link: https://github.com/Dragon8oy/mollusc-themes
  - The master branch is usually unstable, refer to the releases page for stable releases
