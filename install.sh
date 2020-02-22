@@ -1,0 +1,39 @@
+#!/bin/bash
+cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )
+
+buildPackage() {
+  if which dpkg > /dev/null 2>&1; then
+    #Setup package structure
+    #componentPath="debian/usr/share/"
+    mkdir -v debian/usr/
+
+    #Make update-themes executable
+    #chmod -v +x update-themes - Correct path
+
+    #Copy files into directories using componentPath
+    cp -v component $componentPath/
+
+    dpkg --build debian/ && mv debian.deb ./mollusc-themes_all.deb
+
+    #Cleanup debian
+    rm -rfv package/debian/usr/
+
+    echo "Done"
+  else
+    echo "Building Debian packages not supported on this system"
+    exit
+  fi
+}
+
+while [[ "$#" -gt 0 ]]; do case $1 in
+  -h|--help) echo "Kernel-notify Copyright (C) 2020 Stuart Hayhurst"; 
+echo "This program comes with ABSOLUTELY NO WARRANTY."; 
+echo "This is free software; see the source for copying conditions."; 
+echo ""; 
+echo "Usage: ./install.sh [-OPTION]"; 
+echo "Help:"; 
+echo "-h | --help          : Display this page"; echo "-b | --build         : Build and prepare the program for release"; echo "-d | --debian        : Build the .deb and install"; echo ""; echo "Program written by: Dragon8oy"; exit;;
+  -d|--debian) buildPackage; echo "Installing package:"; sudo dpkg -i "mollusc-themes_all.deb"; exit;;
+  -b|--build) buildPackage; exit;;
+  *) echo "Unknown parameter passed: $1"; exit 1;;
+esac; shift; done
