@@ -40,7 +40,7 @@ buildPackage() {
     dpkg --build debian/ && mv debian.deb ./mollusc-themes_all.deb
 
     #Cleanup debian packaging
-    rm -rfv package/debian/usr/
+    rm -rfv debian/usr/
 
     echo "Done"
   else
