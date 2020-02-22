@@ -2,6 +2,15 @@
 cd $( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )
 
 buildPackage() {
+  if which sed > /dev/null 2>&1; then
+    echo "Enter the new version number: (Leave blank to only build package)"
+    read newVersion
+    sed "s|.*Version:.*|Version: $newVersion|" debian/DEBIAN/control > debian/DEBIAN/control.temp
+    mv -v debian/DEBIAN/control.temp debian/DEBIAN/control
+  else
+    echo "Sed not installed or not in path, please correct the error and try again"
+  fi
+
   if which dpkg > /dev/null 2>&1; then
     #Setup package structure
     #componentPath="debian/usr/share/"
