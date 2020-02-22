@@ -1,0 +1,75 @@
+#!/bin/bash
+if dpkg -s mollusc-themes > /dev/null 2>&1; then
+  version=$(dpkg -s mollusc-themes |grep "Version: ")
+  version=${version//Version: }
+else
+  echo "Mollusc-themes not installed, please install and try again"
+  exit
+fi
+
+updateYaru() {
+  #Check if yaru is installed
+  #If it isn't, install prepackaged version and exit
+  if [[ "$1" == "stock" ]]; then
+    installYaru "stock"
+    return
+  fi
+  read -r -p "Yaru will be updated to an unstable version. Are you sure? [y/N] " response
+  if ! [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    echo "Cancelled"
+    exit
+  fi
+  installYaru
+}
+
+installYaru() {
+  echo "Installing yaru:"
+  cd /usr/share/mollusc-themes/
+
+  if [[ "$1" == "stock" ]]; then
+    yaruPackage=$(ls ./ |grep yaru*.tar.gz)
+    yaruDir=${yaruPackage//.tar.gz}
+    sudo tar -xf "$yaruPackage"
+  else
+    yaruDir="yaru"
+    sudo git clone https://github.com/ubuntu/yaru.git
+  fi
+
+  if [[ -d "/usr/share/mollusc-themes/$yaruDir" ]]; then
+    cd "$yaruDir"
+    sudo meson build
+    cd build
+    sudo ninja install
+    cd ../../
+    sudo rm -rf "$yaruDir"
+  else
+    echo "An unexpected error occured"
+  fi
+  echo ""; echo "----------------------------"
+  if [[ "$1" == "stock" ]]; then
+    echo "    Installed stock yaru"
+  else
+    echo "        Updated yaru"
+  fi
+  echo "----------------------------"
+}
+
+updatePackage() {
+  echo "Updating package"
+latestVer=$(curl -k -s -L https://api.github.com/repos/dragon8oy/mollusc-themes/releases/latest | grep "tag_name" | cut -d v -f 2,3 | tr -d \",)
+}
+
+installPackage() {
+  echo "Installing:"
+}
+
+if [[ "$@" != "" ]]; then
+  case $1 in
+      -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; echo "This program comes with ABSOLUTELY NO WARRANTY."; echo "This is free software; see the source for copying conditions."; echo ""; echo "Usage: update-themes [-OPTION]"; echo "Help:"; echo "-h | --help          : Display this help page"; echo "-y | --yaru          : Download latest unstable version of yaru and install"; echo "-u | --update        : Download updates to mollusc-themes"; echo ""; echo "Program written by: Dragon8oy"; exit;;
+  -y|--yaru) updateYaru "$2"; exit;;
+  -u|-p|--update|--package) updatePackage; exit;;
+  *) echo "Unknown parameter passed: $1"; exit 1;;
+  esac
+else
+    echo "No argument specified"
+fi
