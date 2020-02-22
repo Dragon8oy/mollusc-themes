@@ -1,0 +1,11 @@
+Source: mollusc-themes
+Section: misc
+Priority: optional
+Maintainer: Dragon8oy <stuart.a.hayhurst@gmail.com>
+Package: mollusc-themes
+Version: 1.0
+Architecture: all
+Depends: awk | gawk, coreutils (>= 8.25), curl, diffutils, grep, ncurses-bin, policykit-1, procps, psmisc, sed, sudo
+Homepage: <https://github.com/Dragon8oy/kernel-notify>
+Description: A collection of themes
+ A collection of themes, including a GRUB Theme, a Plymouth Theme, a GDM Theme, a full GNOME Theme fonts, wallpapers and a terminal profile
