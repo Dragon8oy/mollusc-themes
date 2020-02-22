@@ -1,5 +1,5 @@
 #!/bin/bash
-if dpkg -s mollusc-themes > /dev/null 2>&1; then
+if dpkg -s mollusc-themes |grep Status |grep -qi installed > /dev/null 2>&1; then
   version=$(dpkg -s mollusc-themes |grep "Version: ")
   version=${version//Version: }
 else
@@ -45,22 +45,43 @@ installYaru() {
   else
     echo "An unexpected error occured"
   fi
-  echo ""; echo "----------------------------"
+  echo ""; echo "----------------------------"; echo ""
   if [[ "$1" == "stock" ]]; then
     echo "    Installed stock yaru"
   else
     echo "        Updated yaru"
   fi
-  echo "----------------------------"
+  echo ""; echo "----------------------------"
 }
 
 updatePackage() {
-  echo "Updating package"
-latestVer=$(curl -k -s -L https://api.github.com/repos/dragon8oy/mollusc-themes/releases/latest | grep "tag_name" | cut -d v -f 2,3 | tr -d \",)
+  echo "Updating package:"
+  latestVer=$(curl -k -s https://api.github.com/repos/dragon8oy/mollusc-themes/releases/latest | grep "tag_name" | cut -d v -f 2,3 | tr -d \",)
+  if [ "${latestVer//.}" -ne "${version//.}" ]; then
+    echo "Program outdated, v$latestVer is available"
+    installPackage
+  else
+    echo "Program up-to-date"
+  fi
 }
 
 installPackage() {
   echo "Installing:"
+  if [[ ! -d "/tmp/mollusc-themes" ]]; then
+    sudo mkdir /tmp/mollusc-themes
+  fi
+  cd /tmp/mollusc-themes
+  sudo curl --progress-bar -O -L $(curl -s -L https://api.github.com/repos/dragon8oy/mollusc-themes/releases/latest |grep "browser_download_url.*deb" |cut -d : -f 2,3 |tr -d \")
+  if ! file mollusc-themes_all.deb | grep -q 'Debian binary package'; then
+    echo "mollusc-themes_all.deb: Not a Debian package"
+    echo "  ATTENTION: Downloaded update faulty"
+    return
+  fi
+  sudo dpkg -i mollusc-themes_all.deb
+  cd /tmp/; sudo rm -rf /tmp/mollusc-themes
+  echo ""; echo "-----------------------------"; echo ""
+  echo "       Updated package"
+  echo ""; echo "----------------------------"
 }
 
 if [[ "$@" != "" ]]; then
