@@ -15,10 +15,22 @@
 
  - GDM Theme (Undecided) - ``
 
+## Installation:
+ - Download the latest deb from the Releases page
+ - Run `sudo dpkg -i mollusc-themes_all.deb`
+ - ### OR:
+   * Run `./build.sh -i`
+
 ## Building:
  - Download the version of yaru's .tar.gz required (Usually the latest)
  - Save it in the project's root folder
  - Run `./build.sh -b`
+
+## Updating:
+ - ### Automatic:
+   * Run `update-themes -u`
+ - ### Manual:
+   * Follow the instructions in the `Installation` section
 
 ## Code of Conduct and Contributing:
  - Read 'CODE\_OF\_CONDUCT.md' and 'CONTRIBUTING.md' in 'docs/' for information
