@@ -5,7 +5,7 @@ buildPackage() {
   if which sed > /dev/null 2>&1; then
     echo "Enter the new version number: (Leave blank to only build package)"
     read newVersion
-    if [[ "$newVersion" =! "" ]]; then
+    if [[ "$newVersion" != "" ]]; then
       sed "s|.*Version:.*|Version: $newVersion|" debian/DEBIAN/control > debian/DEBIAN/control.temp
       mv -v debian/DEBIAN/control.temp debian/DEBIAN/control
     fi
