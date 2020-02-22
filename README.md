@@ -15,6 +15,11 @@
 
  - GDM Theme (Undecided) - ``
 
+## Building:
+ - Download the version of yaru's .tar.gz required (Usually the latest)
+ - Save it in the project's root folder
+ - Run `./build.sh -b`
+
 ## Code of Conduct and Contributing:
  - Read 'CODE\_OF\_CONDUCT.md' and 'CONTRIBUTING.md' in 'docs/' for information
 
