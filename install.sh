@@ -15,16 +15,20 @@ buildPackage() {
     #Setup package structure
     #componentPath="debian/usr/share/"
     mkdir -v debian/usr/
+    mkdir -v debian/usr/bin/
 
     #Make update-themes executable
-    #chmod -v +x update-themes - Correct path
+    chmod -v +x update-themes
 
     #Copy files into directories using componentPath
     cp -v component $componentPath/
 
+    cp -v update-themes debian/usr/bin/
+
+    #Build the package and rename
     dpkg --build debian/ && mv debian.deb ./mollusc-themes_all.deb
 
-    #Cleanup debian
+    #Cleanup debian packaging
     rm -rfv package/debian/usr/
 
     echo "Done"
