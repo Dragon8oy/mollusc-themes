@@ -1,6 +1,7 @@
 test*
-debian.deb
-mollusc-themes*.deb
 notes.txt
 notes/
+debian.deb
+mollusc-themes*.deb
+debian/usr/
 yaru-*
