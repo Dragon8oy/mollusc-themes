@@ -35,7 +35,7 @@ installYaru() {
   if [[ "$1" != "setup" ]]; then
     echo "Installing yaru:"
   else
-    echo "Setting up yaru:"
+    echo "Setting up yaru..."
   fi
 
   if [[ "$1" == "stock" ]]; then
