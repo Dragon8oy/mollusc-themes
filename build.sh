@@ -33,6 +33,7 @@ buildPackage() {
     chmod -v +x update-themes
 
     cp -v update-themes debian/usr/bin/
+    cp -v Components/terminal-profile.dconf "$molluscPath"
     cp -v "$yaruFile" "$molluscPath"
 
     dpkg --build debian/ ./mollusc-themes_all.deb
