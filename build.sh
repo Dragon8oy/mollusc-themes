@@ -37,7 +37,7 @@ buildPackage() {
     cp -v "$yaruFile" "$molluscPath"
 
     #Build the package and rename
-    dpkg --build debian/ && mv debian.deb ./mollusc-themes_all.deb
+    dpkg --build debian/ ./mollusc-themes_all.deb
 
     #Cleanup debian packaging
     rm -rfv debian/usr/
