@@ -54,12 +54,17 @@ installYaru() {
     yaruDir="yaru"
     sudo git clone https://github.com/ubuntu/yaru.git
   elif [[ "$1" == "setup" ]]; then
-    schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
-    if [[ "$schemasPath" == "" ]]; then
-      echo "User-themes not installed correctly, or an error occured"
-      return
+    if gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
+      gsettings set org.gnome.shell.extensions.user-theme name Yaru-dark
+    else
+      schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
+      if [[ "$schemasPath" == "" ]]; then
+        echo "User-themes not installed correctly, or an error occured"
+        return
+      fi
+      gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
     fi
-    gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
+
     gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
     gsettings set org.gnome.desktop.interface icon-theme Yaru
     gsettings set org.gnome.desktop.sound theme-name Yaru
