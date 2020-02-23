@@ -32,6 +32,18 @@
  - ### Manual:
    * Follow the instructions in the `Installation` section
 
+## Usage:
+ - `update-repos --help`
+   - Display the help page
+ - `update-repos --yaru [OPTION]`
+   - Downloads, installs or sets up yaru
+   - stock    : Installs version of yaru bundled with mollusc-themes
+   - release  : Installs latest release of yaru
+   - unstable : Installs latest git version of yaru
+   - setup    : Sets yaru-dark as the shell, gtk, icon, sound and cursor theme
+ - `update-repos --update`
+   - Downloads and installs updates to mollusc-themes is available
+
 ## Code of Conduct and Contributing:
  - Read 'CODE\_OF\_CONDUCT.md' and 'CONTRIBUTING.md' in 'docs/' for information
 

@@ -11,29 +11,62 @@ updateYaru() {
   if [[ "$1" == "stock" ]]; then
     installYaru "stock"
     return
+  elif [[ "$1" == "release" ]]; then
+    installYaru "release"
+    return
+  elif [[ "$1" == "unstable" ]]; then
+    read -r -p "Yaru will be updated to an unstable version. Are you sure? [y/N] " response
+    if ! [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+      echo "Cancelled"
+      exit
+    fi
+    installYaru "unstable"
+    return
+  elif [[ "$1" == "setup" ]]; then
+    installYaru "setup"
+    return
+  else
+    echo "No mode set, run again with one of 'stock', 'release', 'unstable' or 'setup'"
   fi
-  read -r -p "Yaru will be updated to an unstable version. Are you sure? [y/N] " response
-  if ! [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-    echo "Cancelled"
-    exit
-  fi
-  installYaru
 }
 
 installYaru() {
-  echo "Installing yaru:"
   cd /usr/share/mollusc-themes/
+  if [[ "$1" != "setup" ]]; then
+    echo "Installing yaru:"
+  else
+    echo "Setting up yaru:"
+  fi
 
   if [[ "$1" == "stock" ]]; then
     yaruPackage=$(ls ./ |grep yaru*.tar.gz)
     yaruDir=${yaruPackage//.tar.gz}
     sudo tar -xf "$yaruPackage"
-  else
+  elif [[ "$1" == "release" ]]; then
+    #Check for connection
+    #Download latest version .tar.gz
+    #Set yaruDir
+    #Extract files
+
+    #Remove
+    return
+  elif [[ "$1" == "unstable" ]]; then
     yaruDir="yaru"
     sudo git clone https://github.com/ubuntu/yaru.git
+  elif [[ "$1" == "setup" ]]; then
+    schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
+    if [[ "$schemasPath" == "" ]]; then
+      echo "User-themes not installed correctly, or an error occured"
+      return
+    fi
+    gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
+    gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
+    gsettings set org.gnome.desktop.interface icon-theme Yaru
+    gsettings set org.gnome.desktop.sound theme-name Yaru
+    gsettings set org.gnome.desktop.interface cursor-theme Yaru
   fi
 
-  if [[ -d "/usr/share/mollusc-themes/$yaruDir" ]]; then
+  if [[ -d "/usr/share/mollusc-themes/$yaruDir" ]] && [[ "$1" != "setup" ]]; then
     cd "$yaruDir"
     sudo meson build
     cd build
@@ -46,8 +79,10 @@ installYaru() {
   echo ""; echo "----------------------------"; echo ""
   if [[ "$1" == "stock" ]]; then
     echo "    Installed stock yaru"
-  else
+  elif [[ "$1" == "release" ]] || [[ "$1" == "unstable" ]]; then
     echo "        Updated yaru"
+  elif [[ "$1" == "setup" ]]; then
+    echo "    Yaru setup successful"
   fi
   echo ""; echo "----------------------------"
 }
@@ -84,7 +119,19 @@ installPackage() {
 
 if [[ "$@" != "" ]]; then
   case $1 in
-      -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; echo "This program comes with ABSOLUTELY NO WARRANTY."; echo "This is free software; see the source for copying conditions."; echo ""; echo "Usage: update-themes [-OPTION]"; echo "Help:"; echo "-h | --help          : Display this help page"; echo "-y | --yaru          : Download latest unstable version of yaru and install"; echo "-u | --update        : Download updates to mollusc-themes"; echo ""; echo "Program written by: Dragon8oy"; exit;;
+      -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; \
+echo "This program comes with ABSOLUTELY NO WARRANTY."; \
+echo "This is free software; see the source for copying conditions."; echo ""; \
+echo "Usage: update-themes [-OPTION]"; \
+echo "Help:"; \
+echo "-h | --help          : Display this help page"; \
+echo "-u | --update        : Download updates to mollusc-themes"; \
+echo "-y | --yaru [OPTION] : Downloads, installs or sets up yaru"; echo ""; \
+echo "    stock    : Installs version of yaru bundled with mollusc-themes"; \
+echo "    release  : Installs latest release of yaru"; \
+echo "    unstable : Installs latest git version of yaru"; \
+echo "    setup    : Sets yaru-dark as the shell, gtk, icon, sound and cursor theme"; echo ""; \
+echo "Program written by: Dragon8oy"; exit;;
   -y|--yaru) updateYaru "$2"; exit;;
   -u|-p|--update|--package) updatePackage; exit;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
