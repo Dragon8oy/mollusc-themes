@@ -8,8 +8,6 @@ else
 fi
 
 updateYaru() {
-  #Check if yaru is installed
-  #If it isn't, install prepackaged version and exit
   if [[ "$1" == "stock" ]]; then
     installYaru "stock"
     return
