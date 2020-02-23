@@ -124,19 +124,8 @@ installPackage() {
 
 if [[ "$@" != "" ]]; then
   case $1 in
-      -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; \
-echo "This program comes with ABSOLUTELY NO WARRANTY."; \
-echo "This is free software; see the source for copying conditions."; echo ""; \
-echo "Usage: update-themes [-OPTION]"; \
-echo "Help:"; \
-echo "-h | --help          : Display this help page"; \
-echo "-u | --update        : Download updates to mollusc-themes"; \
-echo "-y | --yaru [OPTION] : Downloads, installs or sets up yaru"; echo ""; \
-echo "    stock    : Installs version of yaru bundled with mollusc-themes"; \
-echo "    release  : Installs latest release of yaru"; \
-echo "    unstable : Installs latest git version of yaru"; \
-echo "    setup    : Sets yaru-dark as the shell, gtk, icon, sound and cursor theme"; echo ""; \
-echo "Program written by: Dragon8oy"; exit;;
+      -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; 
+echo "This program comes with ABSOLUTELY NO WARRANTY."; echo "This is free software; see the source for copying conditions."; echo ""; echo "Usage: update-themes [-OPTION]"; echo "Help:"; echo "-h | --help          : Display this help page"; echo "-u | --update        : Download updates to mollusc-themes"; echo "-y | --yaru [OPTION] : Downloads, installs or sets up yaru"; echo ""; echo "    stock    : Installs version of yaru bundled with mollusc-themes"; echo "    release  : Installs latest release of yaru"; echo "    unstable : Installs latest git version of yaru"; echo "    setup    : Sets yaru-dark as the shell, gtk, icon, sound and cursor theme"; echo ""; echo "Program written by: Dragon8oy"; exit;;
   -y|--yaru) updateYaru "$2"; exit;;
   -u|-p|--update|--package) updatePackage; exit;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
