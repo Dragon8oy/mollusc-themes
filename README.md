@@ -6,8 +6,8 @@
 
 ## Contents:
  - Component - `Author` - Source
- - GRUB Theme - `vinceliuice` + `Dragon8oy` - [grub2-themes](https://github.com/vinceliuice/grub2-themes "grub2-themes")
- - Plymouth Theme - `navisjayaseelan` + `Dragon8oy` - [apple-mac-plymouth](https://github.com/navisjayaseelan/apple-mac-plymouth "apple-mac-plymouth")
+ - GRUB Theme (Modified) - `vinceliuice` - [grub2-themes](https://github.com/vinceliuice/grub2-themes "grub2-themes")
+ - Plymouth Theme (Modified) - `navisjayaseelan` - [apple-mac-plymouth](https://github.com/navisjayaseelan/apple-mac-plymouth "apple-mac-plymouth")
  - Shell / GTK / Sound / Icon / Cursor Theme - `Canonical / Yaru Team` - [Yaru](https://github.com/ubuntu/yaru "Yaru")
  - Wallpapers - `DigitalOcean`
  - Fonts - `Canonical`
