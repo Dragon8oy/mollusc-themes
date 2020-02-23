@@ -13,7 +13,7 @@ buildPackage() {
     echo "Sed not installed or not in path, please correct the error and try again"
   fi
 
-  echo "Enter the name / relative path to yaru.tar.gz: (Leave blank to try to find yaru)"
+  echo "Enter the relative path to yaru.tar.gz: (Leave blank to try to find yaru)"
   read yaruFile
   if [[ "$yaruFile" == "" ]]; then
     yaruFile=$(ls ./ |grep yaru*.tar.gz)
