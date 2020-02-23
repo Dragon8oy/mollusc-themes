@@ -73,7 +73,7 @@ installYaru() {
     sudo ninja install
     cd ../../
     sudo rm -rf "$yaruDir"
-  else
+  elif [[ "$1" != "setup" ]]; then
     echo "An unexpected error occured"
   fi
   echo ""; echo "----------------------------"; echo ""
