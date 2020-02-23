@@ -30,16 +30,13 @@ buildPackage() {
     mkdir -v debian/usr/share/
     mkdir -v debian/usr/share/mollusc-themes/
 
-    #Make update-themes executable
     chmod -v +x update-themes
 
     cp -v update-themes debian/usr/bin/
     cp -v "$yaruFile" "$molluscPath"
 
-    #Build the package and rename
     dpkg --build debian/ ./mollusc-themes_all.deb
 
-    #Cleanup debian packaging
     rm -rfv debian/usr/
 
     echo "Done"
