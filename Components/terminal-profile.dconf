@@ -1,6 +1,6 @@
 [/]
 background-color='rgb(0,0,0)'
-background-transparency-percent=21
+background-transparency-percent=11
 bold-is-bright=false
 foreground-color='rgb(255,255,255)'
 login-shell=true
