@@ -7,7 +7,8 @@
 gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/mollusc-themes/LockScreenWallpaper.jpg
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/mollusc-themes/DesktopWallpaper.jpg
 
-#Update dconf
-dconf update
+gsettings set org.gnome.desktop.background picture-options zoom
+gsettings set org.gnome.desktop.background primary-color 000000
+gsettings set org.gnome.desktop.background secondary-color 000000
 
 echo "Successfully installed"

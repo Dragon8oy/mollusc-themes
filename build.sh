@@ -43,8 +43,6 @@ buildPackage() {
     cp -v Components/Wallpapers/LockScreenWallpaper.jpg "$molluscPath"
 
     cp -v Components/dconf/terminal-profile.dconf "$molluscPath"
-    cp -v Components/dconf/00-background          debian/etc/dconf/db/local.d/
-    cp -v Components/dconf/user                   debian/etc/dconf/profile/
 
     cp -v "$yaruFile" "$molluscPath"
 
