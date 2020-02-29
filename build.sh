@@ -30,15 +30,28 @@ buildPackage() {
     mkdir -v debian/usr/share/
     mkdir -v debian/usr/share/mollusc-themes/
 
+    mkdir -v debian/etc/
+    mkdir -v debian/etc/dconf/
+    mkdir -v debian/etc/dconf/profile/
+    mkdir -v debian/etc/dconf/db/
+    mkdir -v debian/etc/dconf/db/local.d/
+
     chmod -v +x update-themes
 
     cp -v update-themes debian/usr/bin/
     cp -v Components/terminal-profile.dconf "$molluscPath"
+    cp -v Components/Wallpapers/DesktopWallpaper.jpg "$molluscPath"
+    cp -v Components/Wallpapers/LockScreenWallpaper.jpg "$molluscPath"
+
+    cp -v Components/dconf/00-background debian/etc/dconf/db/local.d/
+    cp -v Components/dconf/user debian/etc/dconf/profile/
+
     cp -v "$yaruFile" "$molluscPath"
 
     dpkg --build debian/ ./mollusc-themes_all.deb
 
     rm -rfv debian/usr/
+    rm -rfv debian/etc/
 
     echo "Done"
   else

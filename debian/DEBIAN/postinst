@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#Set terminal profile
 dconf load /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/ < /usr/share/mollusc-themes/terminal-profile.dconf
+
+#Set wallpapers
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/mollusc-themes/LockScreenWallpaper.jpg
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/mollusc-themes/DesktopWallpaper.jpg
 
 echo "Successfully installed"
