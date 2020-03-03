@@ -61,7 +61,7 @@ buildPackage() {
 if [[ "$@" != "" ]]; then
   case $1 in
     -h|--help) echo "Mollusc-themes Copyright (C) 2020 Stuart Hayhurst"; echo "This program comes with ABSOLUTELY NO WARRANTY."; echo "This is free software; see the source for copying conditions."; echo ""; echo "Usage: ./build.sh [-OPTION]"; echo "Help:"; echo "-h | --help          : Display this help page"; echo "-b | --build         : Build and prepare the program for release"; echo "-d | --debian        : Build the .deb and install"; echo ""; echo "Program written by: Dragon8oy"; exit;;
-    -i|--install) buildPackage; echo "Installing package:"; sudo dpkg -i "mollusc-themes_all.deb"; exit;;
+    -i|-d|--install|--debian) buildPackage; echo "Installing package:"; sudo dpkg -i "mollusc-themes_all.deb"; exit;;
     -b|--build) buildPackage; exit;;
     *) echo "Unknown parameter passed: $1"; exit 1;;
   esac
