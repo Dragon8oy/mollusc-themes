@@ -7,7 +7,7 @@
 ## Contents:
  - Component - `Author` - Source
  - GRUB Theme (Modified) - `vinceliuice` - [grub2-themes](https://github.com/vinceliuice/grub2-themes "grub2-themes")
- - Plymouth Theme (Modified) - `navisjayaseelan` - [apple-mac-plymouth](https://github.com/navisjayaseelan/apple-mac-plymouth "apple-mac-plymouth")
+ - Plymouth Theme (Modified) - `1deterministic` - [Plymouth-Progress-Bar](https://github.com/1deterministic/Plymouth-Progress-Bar "Plymouth-Progress-Bar")
  - Shell / GTK / Sound / Icon / Cursor Theme - `Canonical / Yaru Team` - [Yaru](https://github.com/ubuntu/yaru "Yaru")
  - Wallpapers - `DigitalOcean`
  - Fonts - `Canonical`
@@ -55,10 +55,11 @@
    * Changed background
    * Modified for packaging
 
- - ### apple-mac-plymouth:
-   * Changed logo
-   * Changed locked icon
+ - ### Plymouth-Progress-Bar:
    * Changed password prompt
+   * Changed background
+   * Changed paths
+   * Changed icon
 
  - ### Yaru:
    * The Suru icon assets (any and all source .svg files or rendered .png files) are licensed under the terms of the Creative Commons Attribution-ShareAlike 4.0 License.
