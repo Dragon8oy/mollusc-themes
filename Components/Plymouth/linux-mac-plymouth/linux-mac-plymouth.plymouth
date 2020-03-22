@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=linux-mac-plymouth
+Description=linux-mac-plymouth
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/linux-mac-plymouth
+ScriptFile=/usr/share/plymouth/themes/linux-mac-plymouth/linux-mac-plymouth.script

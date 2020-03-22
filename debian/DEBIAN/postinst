@@ -11,4 +11,11 @@ gsettings set org.gnome.desktop.background picture-options zoom
 gsettings set org.gnome.desktop.background primary-color 000000
 gsettings set org.gnome.desktop.background secondary-color 000000
 
+#Set plymouth theme
+update-alternatives --install /usr/share/plymouth/themes/default.plymouth default.plymouth /usr/share/plymouth/themes/linux-mac-plymouth/linux-mac-plymouth.plymouth 100
+update-alternatives --config default.plymouth
+plymouth-set-default-theme linux-mac-plymouth
+
+update-initramfs -u -k all
+
 echo "Successfully installed"

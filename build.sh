@@ -29,6 +29,8 @@ buildPackage() {
     mkdir -v debian/usr/bin/
     mkdir -v debian/usr/share/
     mkdir -v debian/usr/share/mollusc-themes/
+    mkdir -v debian/usr/share/plymouth/
+    mkdir -v debian/usr/share/plymouth/themes/
 
     mkdir -v debian/etc/
     mkdir -v debian/etc/dconf/
@@ -41,6 +43,7 @@ buildPackage() {
     cp -v update-themes debian/usr/bin/
     cp -v Components/Wallpapers/DesktopWallpaper.jpg    "$molluscPath"
     cp -v Components/Wallpapers/LockScreenWallpaper.jpg "$molluscPath"
+    cp -Rv Components/Plymouth/linux-mac-plymouth debian/usr/share/plymouth/themes/
 
     cp -v Components/dconf/terminal-profile.dconf "$molluscPath"
 

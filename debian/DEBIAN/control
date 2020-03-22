@@ -5,7 +5,7 @@ Maintainer: Dragon8oy <stuart.a.hayhurst@gmail.com>
 Package: mollusc-themes
 Version: 1.0
 Architecture: all
-Depends: coreutils, curl, dconf-cli, findutils, git, gnome-shell-extensions, gnome-shell-extension-appindicator, gnome-shell-extension-dashtodock, grep, libglib2.0-bin, libgtk-3-dev, meson (>= 0.51), sassc, sed, sudo, tar
+Depends: coreutils, curl, dconf-cli, findutils, git, gnome-shell-extensions, gnome-shell-extension-appindicator, gnome-shell-extension-dashtodock, grep, libglib2.0-bin, libgtk-3-dev, libplymouth4, meson (>= 0.51), plymouth, plymouth-label, plymouth-themes, plymouth-x11, sassc, sed, sudo, tar
 Homepage: <https://github.com/Dragon8oy/mollusc-themes>
 Description: A collection of themes
  A collection of themes, including a GRUB Theme, a Plymouth Theme, a GDM Theme, a full GNOME Theme, fonts, wallpapers, a terminal profile and extensions
