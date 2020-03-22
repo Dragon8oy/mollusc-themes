@@ -52,13 +52,11 @@
  - Code / assets, unless specified, is free software licensed under the terms of the GNU General Public License, version 3.
 
  - ### grub2-themes:
-   * Changed background
    * Modified for packaging
 
- - ### Plymouth-Progress-Bar:
-   * Changed password prompt
-   * Changed background
-   * Changed paths
+ - ### Plymouth-Progress-Bar (adwaita-blue-dark):
+   * Modified for packaging
+   * Changed lock icon
    * Changed icon
 
  - ### Yaru:
