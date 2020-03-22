@@ -19,3 +19,7 @@ plymouth-set-default-theme linux-mac-plymouth
 update-initramfs -u -k all
 
 echo "Successfully installed"
+echo "For nvidia systems, you may want to apply the following:"
+echo "  - Set 'GRUB_GFXMODE' to your resolution in '/etc/default/grub'" 
+echo "  - Add 'quiet splash nvidia-drm.modeset=1' to 'GRUB_CMDLINE_LINUX_DEFAULT'"
+echo "  - Run 'sudo update-grub2'"
