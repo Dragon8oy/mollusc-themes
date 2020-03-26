@@ -16,6 +16,14 @@ update-alternatives --install /usr/share/plymouth/themes/default.plymouth defaul
 update-alternatives --config default.plymouth
 plymouth-set-default-theme linux-mac-plymouth
 
+#Set grub theme in config
+THEME_DIR="/boot/grub/themes"
+THEME_NAME="Tela"
+cp -an /etc/default/grub /etc/default/grub.bak
+grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null && sed -i '/GRUB_THEME=/d' /etc/default/grub
+echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" >> /etc/default/grub
+
+update-grub2
 update-initramfs -u -k all
 
 echo ""; echo "--------------------------------"; echo ""

@@ -38,12 +38,19 @@ buildPackage() {
     mkdir -v debian/etc/dconf/db/
     mkdir -v debian/etc/dconf/db/local.d/
 
+    mkdir -v debian/boot/
+    mkdir -v debian/boot/grub/
+    mkdir -v debian/boot/grub/themes/
+    mkdir -v debian/boot/grub/themes/Tela/
+
     chmod -v +x update-themes
 
     cp -v update-themes debian/usr/bin/
     cp -v Components/Wallpapers/DesktopWallpaper.jpg    "$molluscPath"
     cp -v Components/Wallpapers/LockScreenWallpaper.jpg "$molluscPath"
     cp -Rv Components/Plymouth/linux-mac-plymouth debian/usr/share/plymouth/themes/
+    cp -v Components/GRUB/Tela/* debian/boot/grub/themes/Tela/
+    cp -v Components/GRUB/splash.jpg debian/boot/grub/splash.jpg
 
     cp -v Components/dconf/terminal-profile.dconf "$molluscPath"
 
@@ -53,6 +60,7 @@ buildPackage() {
 
     rm -rfv debian/usr/
     rm -rfv debian/etc/
+    rm -rfv debian/boot/
 
     echo "Done"
   else
