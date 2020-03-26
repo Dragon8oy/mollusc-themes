@@ -75,6 +75,7 @@ installYaru() {
     cd "$yaruDir"
     sudo meson build
     cd build
+    sudo rm -rf /usr/share/themes/Yaru*
     sudo ninja install
     cd ../../
     sudo rm -rf "$yaruDir"
