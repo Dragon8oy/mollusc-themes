@@ -46,7 +46,7 @@ buildPackage() {
     chmod -v +x update-themes
 
     cp -v update-themes debian/usr/bin/
-    cp -v Components/Wallpapers/DesktopWallpaper.jpg    "$molluscPath"
+    cp -v Components/Wallpapers/DesktopWallpaper.png    "$molluscPath"
     cp -v Components/Wallpapers/LockScreenWallpaper.jpg "$molluscPath"
     cp -Rv Components/Plymouth/linux-mac-plymouth debian/usr/share/plymouth/themes/
     cp -v Components/GRUB/Tela/* debian/boot/grub/themes/Tela/
