@@ -9,7 +9,7 @@
  - GRUB Theme (Modified) - `vinceliuice` - [grub2-themes](https://github.com/vinceliuice/grub2-themes "grub2-themes")
  - Plymouth Theme (Modified) - `1deterministic` - [Plymouth-Progress-Bar](https://github.com/1deterministic/Plymouth-Progress-Bar "Plymouth-Progress-Bar")
  - Shell / GTK / Sound / Icon / Cursor Theme - `Canonical / Yaru Team` - [Yaru](https://github.com/ubuntu/yaru "Yaru")
- - Wallpapers - `DigitalOcean`
+ - Wallpapers - `DigitalOcean` (Lock Screen) + `Dragon8oy` (Desktop)
  - Fonts - `Canonical`
  - Terminal Profile - `Dragon8oy`
 
