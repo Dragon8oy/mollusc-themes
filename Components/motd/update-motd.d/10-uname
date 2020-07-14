@@ -1,2 +1,4 @@
-#!/bin/sh
-echo "Welcome to Debian GNU/Linux Unstable" "("$(uname -r) $(uname -m)")"
+#!/bin/bash
+description="$(lsb_release -ds)"
+release="$(lsb_release -rs)"
+echo "Welcome to ${description% *} ${release^} ("$(uname -r) $(uname -m)")"
