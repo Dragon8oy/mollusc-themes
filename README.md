@@ -36,7 +36,6 @@
  - Add installer script
  - Change font install method
  - List extensions
- - Fix terminal profile loading
  - Add pending kernel updates to motd, add arguement to kernel-notify for it
  - Add more customisation to dotfile repo
  - Add a GRUB splash screen to dotfiles
