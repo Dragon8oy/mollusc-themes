@@ -21,16 +21,6 @@
 ## Tweaks:
  - Add /sbin to $PATH with ~/.bashrc
 
-## Update-yaru usage:
- - `update-yaru --help`
-   - Display the help page
- - `update-yaru --unstable`
-   - Downloads or updates to latest unstable Yaru version
- - `update-yaru --manual`
-   - Installs yaru from a .zip or .tar.gz
- - `update-yaru --setup`
-   - Sets yaru-dark as the active theme
-
 ## To-do:
  - Make update-yaru command use Yaru's bootstrap.sh
  - Add installer script
