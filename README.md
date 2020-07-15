@@ -18,6 +18,9 @@
  - [Open Weather](https://extensions.gnome.org/extension/750/openweather/)
  - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 
+## Tweaks:
+ - Add /sbin to $PATH with ~/.bashrc
+
 ## Update-yaru usage:
  - `update-yaru --help`
    - Display the help page
@@ -40,10 +43,10 @@
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
  - Add script to install all of the files
+ - Add screenshots and reorganise README
+ - Add firewall rules
+ - Add links to other yaru, grub theme and extensions
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
  - All other files, unless specified are licensed under `GNU GENERAL PUBLIC LICENSE v3` , a copy of this is stored in `LICENSE.txt`
- - Add /sbin to $PATH with ~/.bashrc
- - Add firewall rules
- - Add links to other yaru, grub theme and extensions
