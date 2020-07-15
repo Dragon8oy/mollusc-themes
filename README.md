@@ -34,7 +34,6 @@
 ## To-do:
  - Make update-yaru command use Yaru's bootstrap.sh
  - Add installer script
- - Change font install method
  - List extensions
  - Add pending kernel updates to motd, add arguement to kernel-notify for it
  - Add more customisation to dotfile repo
@@ -45,6 +44,7 @@
  - Add screenshots and reorganise README
  - Add firewall rules
  - Add links to other yaru, grub theme and extensions
+ - Use gsettings to set interface settings (org.gnome.desktop.interface)
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
