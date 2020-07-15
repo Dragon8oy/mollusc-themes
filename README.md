@@ -5,11 +5,18 @@
 ## Contents:
  - [Tela GRUB Theme](https://github.com/vinceliuice/grub2-themes) - `vinceliuice`
  - [Ubuntu Fonts](https://design.ubuntu.com/font/) - `Canonical`
- - Terminal Profile - `Dragon8oy`
- - User icons - `Dragon8oy`
- - Wallpaper - `Dragon8oy`
- - /usr/bin/update-yaru - `Dragon8oy`
- - motd - `Dragon8oy`
+ - [Terminal Profile](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/terminal-profile.dconf) - `Dragon8oy`
+ - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
+ - [Wallpaper](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
+ - [Yaru updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/update-yaru) - `Dragon8oy`
+ - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
+
+## Extensions:
+ - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
+ - [App Indicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+ - [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+ - [Open Weather](https://extensions.gnome.org/extension/750/openweather/)
+ - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 
 ## Update-yaru usage:
  - `update-yaru --help`
@@ -26,6 +33,13 @@
  - Add installer script
  - Change font install method
  - List extensions
+ - Fix terminal profile loading
+ - Add pending kernel updates to motd, add arguement to kernel-notify for it
+ - Add more customisation to dotfile repo
+ - Add a GRUB splash screen to dotfiles
+ - Add dash to dock config to repo and customisation list
+ - Add nautilus config
+ - Add script to install all of the files
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
