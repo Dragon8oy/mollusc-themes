@@ -3,9 +3,9 @@
  - Obviously, this isn't designed with different setups in mind, use at your own risk
 
 ## Contents:
- - GRUB Theme - `vinceliuice` - [grub2-themes](https://github.com/vinceliuice/grub2-themes "grub2-themes")
- - Fonts - `Canonical`
- - Terminal Profile
+ - [Tela GRUB Theme](https://github.com/vinceliuice/grub2-themes) - `vinceliuice`
+ - [Ubuntu Fonts](https://design.ubuntu.com/font/) - `Canonical`
+ - Terminal Profile - `Dragon8oy`
  - User icons - `Dragon8oy`
  - Wallpaper - `Dragon8oy`
  - /usr/bin/update-yaru - `Dragon8oy`
