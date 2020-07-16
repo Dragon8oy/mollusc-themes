@@ -33,6 +33,7 @@
  - Add firewall rules
  - Add links to other yaru, grub theme and extensions
  - Add user to sudo group
+ - Correct grub resolution
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
