@@ -8,7 +8,7 @@
  - [Terminal Profile](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/terminal-profile.dconf) - `Dragon8oy`
  - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
- - [Yaru updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/update-yaru) - `Dragon8oy`
+ - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
 
 ## Extensions:
@@ -23,7 +23,6 @@
  - Set gsettings values
 
 ## To-do:
- - Make update-yaru command use Yaru's bootstrap.sh
  - Add installer script
  - Add pending kernel updates to motd, add arguement to kernel-notify for it
  - Add a GRUB splash screen to dotfiles
@@ -34,6 +33,9 @@
  - Add links to other yaru, grub theme and extensions
  - Add user to sudo group
  - Correct grub resolution
+
+ - Add support for my icon theme
+ - Install Tela with update-themes
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`

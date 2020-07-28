@@ -1,0 +1,165 @@
+#!/bin/bash
+checkDeps() {
+  if [[ "$1" == "unstable" ]]; then #Check for git if installing unstable
+    if ! git --version > /dev/null 2>&1; then
+      echo "Git missing"
+      depMissing="true"
+    fi
+  fi
+  if [[ "$1" == "stable" ]]; then #Check for unzip or tar if installing stable
+    if ! command -v unzip > /dev/null 2>&1 && ! command -v tar > /dev/null 2>&1; then
+      echo "Both, unzip and tar are missing, one required"
+      depMissing="true"
+    fi
+  fi
+  if [[ "$1" == "setup" ]]; then #Check for gsettings and User Themes extension if setting up
+    if ! command -v gsettings > /dev/null 2>&1; then
+      echo "Gsettings missing"
+      depMissing="true"
+    fi
+    if ! gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
+      echo -n "Searching for User Themes..."
+      schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
+      echo " Done"
+      if [[ "$schemasPath" == "" ]]; then
+        echo "User Themes extension missing"
+        depMissing="true"
+      fi
+    fi
+  fi
+
+  if [[ "$1" == "unstable" ]] || [[ "$1" == "stable" ]]; then #Check for libgtk-3-dev, meson and sassc if installing unstable or stable
+    if ! command -v meson > /dev/null 2>&1; then
+      echo "Meson missing"
+      depMissing="true"
+    fi
+      if ! command -v sassc > /dev/null 2>&1; then
+      echo "Sassc missing"
+      depMissing="true"
+    fi
+    if [[ ! -d "/usr/include/gtk-3.0/" ]]; then
+      echo "libgtk-3-dev missing"
+      depMissing="true"
+    fi
+  fi
+
+  if [[ "$depMissing" == "true" ]]; then
+    echo "1 or more dependencies are missing, please install them and try again"
+    exit 1
+  fi
+}
+
+confirm() {
+  read -r -p "$1" response
+  if ! [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    echo "Cancelled"
+    exit
+  fi
+}
+
+completedMessage() {
+  if [[ "$1" == "install" ]]; then
+    echo -e "----------------------------\n"
+    echo -e "   Themes update complete\n"
+    echo "----------------------------"
+  elif [[ "$1" == "setup" ]]; then
+    echo -e "---------------------------\n"
+    echo -e "   Themes setup complete\n"
+    echo "---------------------------"
+  fi
+}
+
+setupThemes() {
+  if gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
+    gsettings set org.gnome.shell.extensions.user-theme name Yaru-dark
+  else
+    schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
+    if [[ "$schemasPath" == "" ]]; then
+      echo "User-themes not installed correctly, or an error occured"
+      return
+    fi
+    gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
+  fi
+  gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
+  gsettings set org.gnome.desktop.interface icon-theme Yaru
+  gsettings set org.gnome.desktop.sound theme-name Yaru
+  gsettings set org.gnome.desktop.interface cursor-theme Yaru
+}
+
+updateYaru() {
+  if [[ -d "/tmp/update-themes" ]] && [[ ! -w "/tmp/update-themes" ]]; then
+    echo "/tmp/update-themes is unwritable"
+    exit
+  else
+    mkdir -p /tmp/update-themes; cd /tmp/update-themes || exit 1
+  fi
+  if [[ "$1" == "unstable" ]]; then
+    yaruDir="yaru"
+    git clone https://github.com/ubuntu/yaru.git
+  elif [[ "$1" == "stable" ]]; then
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/ubuntu/yaru.git |grep -v "tags/r[0-9]" |tail -n1)"
+    latestVersion="${latestVersion##*tags/}"
+
+    downloadUrl="https://github.com/ubuntu/yaru/archive/$latestVersion"
+    if command -v tar > /dev/null 2>&1; then
+      extractCommand="tar -xf $latestVersion.tar.gz"
+      downloadUrl="$downloadUrl.tar.gz"
+    elif command -v unzip > /dev/null 2>&1; then
+      extractCommand="unzip $latestVersion.zip"
+      downloadUrl="$downloadUrl.zip"
+    fi
+    curl --progress-bar -O -L "$downloadUrl"
+    $extractCommand
+
+    rm "$latestVersion".*
+    yaruDir="yaru-$latestVersion"
+  fi
+  if [[ -d "/tmp/update-themes/$yaruDir" ]]; then
+    cd "$yaruDir" || exit 1
+    sudo rm -rf /usr/share/themes/Yaru*
+    sudo ./bootstrap.sh -b
+    cd ../../ && sudo rm -rf "update-themes"
+  fi
+}
+
+updateThemes() {
+  if [[ "$1" == "unstable" ]]; then
+    checkDeps "unstable"
+    confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
+    updateYaru "unstable"
+    #Update personal icon theme
+    #Update Tela
+    completedMessage "install"
+  elif [[ "$1" == "stable" ]]; then
+    checkDeps "stable"
+    updateYaru "stable"
+    #Update personal icon theme
+    #Update Tela
+    completedMessage "install"
+  elif [[ "$1" == "setup" ]]; then
+    checkDeps "setup"
+    setupThemes
+    completedMessage "setup"
+  else
+    echo "Something went wrong, $1 is not understood"
+  fi
+}
+
+if [[ "$1" != "" ]]; then
+  case $1 in
+    -h|--help) echo "Usage: update-themes [-OPTION]"; \
+    echo "Help:"; \
+    echo "-h | --help                 : Display this help page"; \
+    echo "-u | --unstable             : Update themes to latest unstable versions"; \
+    echo "-i | --install              : Update themes to latest stable versions"; \
+    echo "-s | --setup                : Set yaru-dark as the active theme"; echo ""; \
+    echo "Program written by: Dragon8oy"; exit;;
+  -u|--unstable) updateThemes "unstable"; exit;;
+  -i|--install) updateThemes "stable"; exit;;
+  -s|--setup) updateThemes "setup"; exit;;
+  *) echo "Unknown parameter passed: $1"; exit 1;;
+  esac
+else
+  echo "No argument specified"
+  "$(dirname "${BASH_SOURCE[0]}")/update-themes" "--help"
+fi
