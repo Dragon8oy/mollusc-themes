@@ -32,6 +32,7 @@
  - Add user to sudo group
  - Correct grub resolution (Potentially provided by Tela)
  - Add a set of link to themes installed by update-themes (Yaru, Argon and Tela)
+ - Remove default /etc/motd and /etc/update-motd.d
 
  - Add a GRUB splash screen to update-themes
  - Install Tela with update-themes
