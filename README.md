@@ -1,15 +1,19 @@
-# .dotfiles
+# dotfiles
  - A collection of customised themes and files for my personal setup
  - Obviously, this isn't designed with different setups in mind, use at your own risk
 
 ## Contents:
- - [Tela GRUB Theme](https://github.com/vinceliuice/grub2-themes) - `vinceliuice`
  - [Ubuntu Fonts](https://design.ubuntu.com/font/) - `Canonical`
  - [Terminal Profile](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/terminal-profile.dconf) - `Dragon8oy`
  - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
  - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
+
+## Downloaded content:
+ - [Argon Icon Theme](https://github.com/Dragon8oy/argon-icon-theme) - `Dragon8oy`
+ - [Tela GRUB Theme](https://github.com/vinceliuice/grub2-themes) - `vinceliuice`
+ - [Yaru Theme](https://github.com/ubuntu/yaru) - `Canonical`
 
 ## Extensions:
  - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
@@ -30,12 +34,7 @@
  - Add screenshots and reorganise README
  - Add firewall rules
  - Add user to sudo group
- - Correct grub resolution (Potentially provided by Tela)
- - Add a set of link to themes installed by update-themes (Yaru, Argon and Tela)
  - Remove default /etc/motd and /etc/update-motd.d
-
- - Add a GRUB splash screen to update-themes
- - Install Tela with update-themes
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`

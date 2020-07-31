@@ -84,16 +84,25 @@ setupThemes() {
   gsettings set org.gnome.desktop.interface cursor-theme Yaru
 }
 
-updateYaru() {
+prepareBuild() {
   if [[ -d "/tmp/update-themes" ]] && [[ ! -w "/tmp/update-themes" ]]; then
     echo "/tmp/update-themes is unwritable"
     exit
   else
     mkdir -p /tmp/update-themes; cd /tmp/update-themes || exit 1
   fi
+}
+
+cleanBuild() {
+  cd /tmp || exit 1
+  sudo rm -rf /tmp/update-themes
+}
+
+updateYaru() {
+  prepareBuild
   if [[ "$1" == "unstable" ]]; then
     yaruDir="yaru"
-    git clone https://github.com/ubuntu/yaru.git
+    git clone --depth 1 https://github.com/ubuntu/yaru.git
   elif [[ "$1" == "stable" ]]; then
     latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/ubuntu/yaru.git |grep -v "tags/r[0-9]" |tail -n1)"
     latestVersion="${latestVersion##*tags/}"
@@ -116,20 +125,14 @@ updateYaru() {
     cd "$yaruDir" || exit 1
     sudo rm -rf /usr/share/themes/Yaru*
     sudo ./bootstrap.sh -b
-    cd ../../ && sudo rm -rf "update-themes"
   fi
 }
 
 updateArgon() {
-  if [[ -d "/tmp/update-themes" ]] && [[ ! -w "/tmp/update-themes" ]]; then
-    echo "/tmp/update-themes is unwritable"
-    exit
-  else
-    mkdir -p /tmp/update-themes; cd /tmp/update-themes || exit 1
-  fi
+  prepareBuild
   if [[ "$1" == "unstable" ]]; then
     argonDir="argon-icon-theme"
-    git clone https://github.com/Dragon8oy/argon-icon-theme.git
+    git clone --depth 1 https://github.com/Dragon8oy/argon-icon-theme.git
   elif [[ "$1" == "stable" ]]; then
     latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-icon-theme.git |tail -n1)"
     latestVersion="${latestVersion##*tags/}"
@@ -153,26 +156,53 @@ updateArgon() {
     sudo make uninstall
     make build -j8
     sudo make install; sudo make refresh
-    cd ../../ && sudo rm -rf "update-themes"
+  fi
+}
+
+updateTela() {
+  prepareBuild
+  if [[ "$1" == "unstable" ]]; then
+    telaDir="grub2-themes"
+    git clone --depth 1 https://github.com/vinceliuice/grub2-themes.git
+  elif [[ "$1" == "stable" ]]; then
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/vinceliuice/grub2-themes.git |tail -n1)"
+    latestVersion="${latestVersion##*tags/}"
+
+    downloadUrl="https://github.com/vinceliuice/grub2-themes/archive/$latestVersion"
+    if command -v tar > /dev/null 2>&1; then
+      extractCommand="tar -xf $latestVersion.tar.gz"
+      downloadUrl="$downloadUrl.tar.gz"
+    elif command -v unzip > /dev/null 2>&1; then
+      extractCommand="unzip $latestVersion.zip"
+      downloadUrl="$downloadUrl.zip"
+    fi
+    curl --progress-bar -O -L "$downloadUrl"
+    $extractCommand
+
+    rm "$latestVersion".*
+    telaDir="grub2-themes-$latestVersion"
+  fi
+  if [[ -d "/tmp/update-themes/$telaDir" ]]; then
+    cd "$telaDir" || exit 1
+    if [[ -f "backgrounds/1080p/background-tela.jpg" ]]; then
+      sudo cp backgrounds/1080p/background-tela.jpg /boot/grub/splash0.jpg
+    else
+      echo "Tela background couldn't be found, please report this issue to Dragon8oy/dotfiles" 1>&2
+      exit 1
+    fi
+    sudo ./install.sh --tela
   fi
 }
 
 updateThemes() {
   if [[ "$1" == "unstable" ]]; then
-    checkDeps "unstable"
     confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
-    updateYaru "unstable"
-    updateArgon "unstable"
-    #Update Tela
-  elif [[ "$1" == "stable" ]]; then
-    checkDeps "stable"
-    updateYaru "stable"
-    updateArgon "stable"
-    #Update Tela
-  else
-    echo "Something went wrong, $1 is not understood"
-    exit
   fi
+  checkDeps "$1"
+  updateTela "$1"
+  updateYaru "$1"
+  updateArgon "$1"
+  cleanBuild
   setupThemes
   completedMessage "install"
 }
