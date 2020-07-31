@@ -12,19 +12,17 @@ checkDeps() {
       depMissing="true"
     fi
   fi
-  if [[ "$1" == "setup" ]]; then #Check for gsettings and User Themes extension if setting up
-    if ! command -v gsettings > /dev/null 2>&1; then
-      echo "Gsettings missing"
+  if ! command -v gsettings > /dev/null 2>&1; then #Check for dependencies to setup the themes
+    echo "Gsettings missing"
+    depMissing="true"
+  fi
+  if ! gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
+    echo -n "Searching for User Themes..."
+    schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
+    echo " Done"
+    if [[ "$schemasPath" == "" ]]; then
+      echo "User Themes extension missing"
       depMissing="true"
-    fi
-    if ! gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
-      echo -n "Searching for User Themes..."
-      schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
-      echo " Done"
-      if [[ "$schemasPath" == "" ]]; then
-        echo "User Themes extension missing"
-        depMissing="true"
-      fi
     fi
   fi
 
@@ -81,7 +79,7 @@ setupThemes() {
     gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
   fi
   gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
-  gsettings set org.gnome.desktop.interface icon-theme Yaru
+  gsettings set org.gnome.desktop.interface icon-theme Argon
   gsettings set org.gnome.desktop.sound theme-name Yaru
   gsettings set org.gnome.desktop.interface cursor-theme Yaru
 }
@@ -122,27 +120,61 @@ updateYaru() {
   fi
 }
 
+updateArgon() {
+  if [[ -d "/tmp/update-themes" ]] && [[ ! -w "/tmp/update-themes" ]]; then
+    echo "/tmp/update-themes is unwritable"
+    exit
+  else
+    mkdir -p /tmp/update-themes; cd /tmp/update-themes || exit 1
+  fi
+  if [[ "$1" == "unstable" ]]; then
+    argonDir="argon-icon-theme"
+    git clone https://github.com/Dragon8oy/argon-icon-theme.git
+  elif [[ "$1" == "stable" ]]; then
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-icon-theme.git |tail -n1)"
+    latestVersion="${latestVersion##*tags/}"
+
+    downloadUrl="https://github.com/Dragon8oy/argon-icon-theme/archive/$latestVersion"
+    if command -v tar > /dev/null 2>&1; then
+      extractCommand="tar -xf $latestVersion.tar.gz"
+      downloadUrl="$downloadUrl.tar.gz"
+    elif command -v unzip > /dev/null 2>&1; then
+      extractCommand="unzip $latestVersion.zip"
+      downloadUrl="$downloadUrl.zip"
+    fi
+    curl --progress-bar -O -L "$downloadUrl"
+    $extractCommand
+
+    rm "$latestVersion".*
+    argonDir="argon-icon-theme-${latestVersion/v}"
+  fi
+  if [[ -d "/tmp/update-themes/$argonDir" ]]; then
+    cd "$argonDir" || exit 1
+    sudo make uninstall
+    make build -j8
+    sudo make install; sudo make refresh
+    cd ../../ && sudo rm -rf "update-themes"
+  fi
+}
+
 updateThemes() {
   if [[ "$1" == "unstable" ]]; then
     checkDeps "unstable"
     confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
     updateYaru "unstable"
-    #Update personal icon theme
+    updateArgon "unstable"
     #Update Tela
-    completedMessage "install"
   elif [[ "$1" == "stable" ]]; then
     checkDeps "stable"
     updateYaru "stable"
-    #Update personal icon theme
+    updateArgon "stable"
     #Update Tela
-    completedMessage "install"
-  elif [[ "$1" == "setup" ]]; then
-    checkDeps "setup"
-    setupThemes
-    completedMessage "setup"
   else
     echo "Something went wrong, $1 is not understood"
+    exit
   fi
+  setupThemes
+  completedMessage "install"
 }
 
 if [[ "$1" != "" ]]; then
@@ -151,12 +183,10 @@ if [[ "$1" != "" ]]; then
     echo "Help:"; \
     echo "-h | --help                 : Display this help page"; \
     echo "-u | --unstable             : Update themes to latest unstable versions"; \
-    echo "-i | --install              : Update themes to latest stable versions"; \
-    echo "-s | --setup                : Set yaru-dark as the active theme"; echo ""; \
+    echo "-s | --stable               : Update themes to latest stable versions"; \
     echo "Program written by: Dragon8oy"; exit;;
   -u|--unstable) updateThemes "unstable"; exit;;
-  -i|--install) updateThemes "stable"; exit;;
-  -s|--setup) updateThemes "setup"; exit;;
+  -i|--install|--stable) updateThemes "stable"; exit;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
   esac
 else
