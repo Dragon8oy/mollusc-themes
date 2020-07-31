@@ -24,17 +24,16 @@
 
 ## To-do:
  - Add installer script
- - Add pending kernel updates to motd, add arguement to kernel-notify for it
- - Add a GRUB splash screen to dotfiles
+ - Add pending kernel updates to motd, add argument to kernel-notify for it
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
  - Add screenshots and reorganise README
  - Add firewall rules
- - Add links to other yaru, grub theme and extensions
  - Add user to sudo group
- - Correct grub resolution
+ - Correct grub resolution (Potentially provided by Tela)
+ - Add a set of link to themes installed by update-themes (Yaru, Argon and Tela)
 
- - Add support for my icon theme
+ - Add a GRUB splash screen to update-themes
  - Install Tela with update-themes
 
 ## Licensing:
