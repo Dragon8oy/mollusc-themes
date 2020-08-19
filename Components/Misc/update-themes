@@ -1,11 +1,5 @@
 #!/bin/bash
 checkDeps() {
-  if [[ "$1" == "unstable" ]]; then #Check for git if installing unstable
-    if ! git --version > /dev/null 2>&1; then
-      echo "Git missing"
-      depMissing="true"
-    fi
-  fi
   if [[ "$1" == "stable" ]]; then #Check for unzip or tar if installing stable
     if ! command -v unzip > /dev/null 2>&1 && ! command -v tar > /dev/null 2>&1; then
       echo "Both, unzip and tar are missing, one required"
@@ -26,12 +20,20 @@ checkDeps() {
     fi
   fi
 
-  if [[ "$1" == "unstable" ]] || [[ "$1" == "stable" ]]; then #Check for libgtk-3-dev, meson and sassc if installing unstable or stable
+  if [[ "$1" == "unstable" ]] || [[ "$1" == "stable" ]]; then #Check for build dependencies
+    if ! command -v sed > /dev/null 2>&1; then
+      echo "Sed missing"
+      depMissing="true"
+    fi
+    if ! git --version > /dev/null 2>&1; then
+      echo "Git missing"
+      depMissing="true"
+    fi
     if ! command -v meson > /dev/null 2>&1; then
       echo "Meson missing"
       depMissing="true"
     fi
-      if ! command -v sassc > /dev/null 2>&1; then
+    if ! command -v sassc > /dev/null 2>&1; then
       echo "Sassc missing"
       depMissing="true"
     fi
@@ -154,7 +156,7 @@ updateArgon() {
   if [[ -d "/tmp/update-themes/$argonDir" ]]; then
     cd "$argonDir" || exit 1
     sudo make uninstall
-    make build -j8
+    make index
     sudo make install; sudo make refresh
   fi
 }
