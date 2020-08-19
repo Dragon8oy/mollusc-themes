@@ -25,6 +25,10 @@ checkDeps() {
       echo "Sed missing"
       depMissing="true"
     fi
+    if ! command -v make > /dev/null 2>&1; then
+      echo "Make missing"
+      depMissing="true"
+    fi
     if ! git --version > /dev/null 2>&1; then
       echo "Git missing"
       depMissing="true"
