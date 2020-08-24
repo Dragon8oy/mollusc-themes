@@ -30,7 +30,6 @@
 
 ## To-do:
  - Add installer script
- - Add pending kernel updates to motd, add argument to kernel-notify for it
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
  - Add screenshots and reorganise README
