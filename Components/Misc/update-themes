@@ -21,6 +21,10 @@ checkDeps() {
   fi
 
   if [[ "$1" == "unstable" ]] || [[ "$1" == "stable" ]]; then #Check for build dependencies
+    if ! command -v grep > /dev/null 2>&1; then
+      echo "Grep missing"
+      depMissing="true"
+    fi
     if ! command -v sed > /dev/null 2>&1; then
       echo "Sed missing"
       depMissing="true"
@@ -200,6 +204,64 @@ updateTela() {
   fi
 }
 
+updateRainbow() {
+  prepareBuild
+  if [[ "$1" == "unstable" ]]; then
+    rainbowDir="rainbow-cursor"
+    git clone --depth 1 https://github.com/Dragon8oy/rainbow-cursor.git
+  elif [[ "$1" == "stable" ]]; then
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/rainbow-cursor.git |tail -n1)"
+    latestVersion="${latestVersion##*tags/}"
+
+    downloadUrl="https://github.com/Dragon8oy/rainbow-cursor/archive/$latestVersion"
+    if command -v tar > /dev/null 2>&1; then
+      extractCommand="tar -xf $latestVersion.tar.gz"
+      downloadUrl="$downloadUrl.tar.gz"
+    elif command -v unzip > /dev/null 2>&1; then
+      extractCommand="unzip $latestVersion.zip"
+      downloadUrl="$downloadUrl.zip"
+    fi
+    curl --progress-bar -O -L "$downloadUrl"
+    $extractCommand
+
+    rm "$latestVersion".*
+    rainbowDir="rainbow-cursor-${latestVersion/v}"
+  fi
+  if [[ -d "/tmp/update-themes/$rainbowDir" ]]; then
+    cd "$rainbowDir" || exit 1
+    sudo mkdir -p /usr/share/rainbow-cursor
+    sudo cp rainbow-cursor.sh /usr/share/rainbow-cursor
+    sudo cp launch-cursor.sh /usr/share/rainbow-cursor
+    if [[ "$USER" == "root" ]] || [[ "$USER" == "" ]]; then
+      read -r -p "Are you sure you want to install rainbow-cursor as root? [y/N] (Only root will see the cursor) " response
+      if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        installPath="/root/.bashrc"
+      else
+        read -r -p "Do you want to install as a different user instead? [y/N] " response
+        if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+          echo "Enter the name of the user to install for:"
+          read -r targetUser
+          installPath="/home/$targetUser/.bashrc"
+        else
+          return
+        fi
+      fi
+    else
+      installPath="/home/$USER/.bashrc"
+    fi
+    if [[ -f "$installPath" ]]; then
+      if grep -q "/usr/share/rainbow-cursor/" "$installPath"; then
+        return
+      else
+        echo "#Add rainbow cursor" >> "$installPath"
+        echo ". /usr/share/rainbow-cursor/launch-cursor.sh" >> "$installPath"
+      fi
+    else
+      echo "Couldn't find \"$installPath\""
+    fi
+  fi
+}
+
 updateThemes() {
   if [[ "$1" == "unstable" ]]; then
     confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
@@ -223,6 +285,7 @@ if [[ "$1" != "" ]]; then
     echo "Program written by: Dragon8oy"; exit;;
   -u|--unstable) updateThemes "unstable"; exit;;
   -i|--install|--stable) updateThemes "stable"; exit;;
+  -r|--rainbow) updateRainbow "unstable"; cleanBuild; exit;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
   esac
 else
