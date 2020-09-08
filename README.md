@@ -20,6 +20,7 @@
  - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
  - [Hide Activities Button](https://extensions.gnome.org/extension/744/hide-activities-button/)
  - [App Indicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+ - [Remove App Menu](https://extensions.gnome.org/extension/591/remove-app-menu/)
  - [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
  - [Open Weather](https://extensions.gnome.org/extension/750/openweather/)
  - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
