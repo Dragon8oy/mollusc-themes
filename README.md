@@ -8,7 +8,7 @@
  - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/RiverMountains.png) - `Dragon8oy`
  - [Wallpaper 2](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
- - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/update-themes) - `Dragon8oy`
+ - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
 
 ## Downloaded content:
@@ -30,7 +30,7 @@
  - Set gsettings values
 
 ## To-do:
- - Add installer script
+ - Add installer script (Handle running all the scripts in Components/Scripts, installing update-themes and running it)
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
  - Add screenshots
