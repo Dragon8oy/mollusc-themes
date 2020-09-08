@@ -34,6 +34,7 @@
  - Add installer script (Handle running all the scripts in Components/Scripts, installing update-themes and running it)
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
+ - Merge rainbow-cursor into dotfiles
 
 ## Licensing:
  - Files contained in `Components/Wallpapers/` are licensed under `Creative Commons Attribution Share Alike 4.0`, a copy of this is stored in `Components/Wallpapers/LICENSE.txt`
