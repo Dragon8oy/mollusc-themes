@@ -33,8 +33,7 @@
  - Add installer script
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
- - Add screenshots and reorganise README
- - Add firewall rules
+ - Add screenshots
  - Add user to sudo group
 
 ## Licensing:
