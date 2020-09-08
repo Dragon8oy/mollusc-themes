@@ -8,6 +8,7 @@
  - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/RiverMountains.png) - `Dragon8oy`
  - [Wallpaper 2](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
+ - More wallpapers are contained, but only 2 are listed
  - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
 
@@ -35,5 +36,6 @@
  - Add nautilus config
 
 ## Licensing:
+ - Files contained in `Components/Wallpapers/` are licensed under `Creative Commons Attribution Share Alike 4.0`, a copy of this is stored in `Components/Wallpapers/LICENSE.txt`
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
  - All other files, unless specified are licensed under `GNU GENERAL PUBLIC LICENSE v3`, a copy of this is stored in `LICENSE.txt`
