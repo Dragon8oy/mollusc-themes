@@ -33,8 +33,6 @@
  - Add installer script (Handle running all the scripts in Components/Scripts, installing update-themes and running it)
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
- - Add screenshots
- - Add user to sudo group
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
