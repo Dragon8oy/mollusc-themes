@@ -36,4 +36,4 @@
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
- - All other files, unless specified are licensed under `GNU GENERAL PUBLIC LICENSE v3` , a copy of this is stored in `LICENSE.txt`
+ - All other files, unless specified are licensed under `GNU GENERAL PUBLIC LICENSE v3`, a copy of this is stored in `LICENSE.txt`
