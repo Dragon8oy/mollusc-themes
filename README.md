@@ -36,7 +36,6 @@
  - Add screenshots and reorganise README
  - Add firewall rules
  - Add user to sudo group
- - Remove default /etc/motd and /etc/update-motd.d
 
 ## Licensing:
  - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
