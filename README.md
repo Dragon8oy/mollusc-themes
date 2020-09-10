@@ -35,6 +35,7 @@
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
  - Merge rainbow-cursor into dotfiles
+ - Add dotfiles directory for actual dotfiles (.bashrc /etc/default/grub, firewall)
 
 ## Licensing:
  - Files contained in `Components/Wallpapers/` are licensed under `Creative Commons Attribution Share Alike 4.0`, a copy of this is stored in `Components/Wallpapers/LICENSE.txt`
