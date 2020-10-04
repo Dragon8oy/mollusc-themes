@@ -19,6 +19,7 @@
 
 ## Extensions:
  - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
+ - [Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)
  - [Hide Activities Button](https://extensions.gnome.org/extension/744/hide-activities-button/)
  - [App Indicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)
  - [Remove App Menu](https://extensions.gnome.org/extension/591/remove-app-menu/)
