@@ -1,11 +1,9 @@
 #!/bin/bash
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
-cd ../Fonts || exit 1
 
 #Install fonts
-sudo dpkg -i ./*.deb
+sudo apt install fonts-ubuntu-console fonts-ubuntu-font-family-console fonts-ubuntu ttf-ubuntu-font-family
 
-#Set fomts
+#Set fonts
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 13'
