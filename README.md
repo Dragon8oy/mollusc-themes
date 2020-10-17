@@ -32,10 +32,9 @@
  - Set gsettings values
 
 ## To-do:
- - Add installer script (Handle running all the scripts in Components/Scripts, installing update-themes and running it)
  - Add dash to dock config to repo and customisation list
  - Add nautilus config
- - Merge rainbow-cursor into dotfiles
+ - Potentially merge rainbow-cursor into dotfiles
  - Add dotfiles directory for actual dotfiles (.bashrc /etc/default/grub, firewall)
 
 ## Licensing:
