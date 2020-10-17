@@ -194,13 +194,13 @@ updateTela() {
   fi
   if [[ -d "/tmp/update-themes/$telaDir" ]]; then
     cd "$telaDir" || exit 1
-    if [[ -f "backgrounds/1080p/background-tela.jpg" ]]; then
-      sudo cp backgrounds/1080p/background-tela.jpg /boot/grub/splash0.jpg
-    else
-      echo "Tela background couldn't be found, please report this issue to Dragon8oy/dotfiles" 1>&2
-      exit 1
-    fi
     sudo ./install.sh --tela
+    if [[ -f "/usr/share/grub/themes/Tela/background.jpg" ]]; then
+      sudo cp -v /usr/share/grub/themes/Tela/background.jpg /boot/grub/splash0.jpg
+    elif [[ -f "/boot/grub/themes/Tela/background.jpg" ]]; then
+      sudo cp -v /boot/grub/themes/Tela/background.jpg /boot/grub/splash0.jpg
+    fi
+    sudo update-grub
   fi
 }
 
