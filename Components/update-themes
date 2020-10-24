@@ -111,7 +111,7 @@ cleanBuild() {
 updateYaru() {
   prepareBuild
   if [[ "$1" == "unstable" ]]; then
-    yaruDir="yaru"
+    buildDir="yaru"
     git clone --depth 1 https://github.com/ubuntu/yaru.git
   elif [[ "$1" == "stable" ]]; then
     latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/ubuntu/yaru.git |grep -v "tags/r[0-9]" |tail -n1)"
@@ -129,19 +129,19 @@ updateYaru() {
     $extractCommand
 
     rm "$latestVersion".*
-    yaruDir="yaru-$latestVersion"
+    buildDir="yaru-$latestVersion"
   fi
-  if [[ -d "/tmp/update-themes/$yaruDir" ]]; then
-    cd "$yaruDir" || exit 1
+  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
+    cd "$buildDir" || exit 1
     sudo rm -rf /usr/share/themes/Yaru*
     sudo ./bootstrap.sh -b
   fi
 }
 
-updateArgon() {
+updateArgonIcons() {
   prepareBuild
   if [[ "$1" == "unstable" ]]; then
-    argonDir="argon-icon-theme"
+    buildDir="argon-icon-theme"
     git clone --depth 1 https://github.com/Dragon8oy/argon-icon-theme.git
   elif [[ "$1" == "stable" ]]; then
     latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-icon-theme.git |tail -n1)"
@@ -159,26 +159,26 @@ updateArgon() {
     $extractCommand
 
     rm "$latestVersion".*
-    argonDir="argon-icon-theme-${latestVersion/v}"
+    buildDir="argon-icon-theme-${latestVersion/v}"
   fi
-  if [[ -d "/tmp/update-themes/$argonDir" ]]; then
-    cd "$argonDir" || exit 1
+  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
+    cd "$buildDir" || exit 1
     sudo make uninstall
     make index
     sudo make install; sudo make refresh
   fi
 }
 
-updateTela() {
+updateArgonGrub() {
   prepareBuild
   if [[ "$1" == "unstable" ]]; then
-    telaDir="grub2-themes"
-    git clone --depth 1 https://github.com/vinceliuice/grub2-themes.git
+    buildDir="argon-grub-theme"
+    git clone --depth 1 https://github.com/Dragon8oy/argon-grub-theme.git
   elif [[ "$1" == "stable" ]]; then
-    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/vinceliuice/grub2-themes.git |tail -n1)"
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-grub-theme.git |tail -n1)"
     latestVersion="${latestVersion##*tags/}"
 
-    downloadUrl="https://github.com/vinceliuice/grub2-themes/archive/$latestVersion"
+    downloadUrl="https://github.com/Dragon8oy/argon-grub-theme/archive/$latestVersion"
     if command -v tar > /dev/null 2>&1; then
       extractCommand="tar -xf $latestVersion.tar.gz"
       downloadUrl="$downloadUrl.tar.gz"
@@ -190,24 +190,18 @@ updateTela() {
     $extractCommand
 
     rm "$latestVersion".*
-    telaDir="grub2-themes-$latestVersion"
+    buildDir="argon-grub-theme-$latestVersion"
   fi
-  if [[ -d "/tmp/update-themes/$telaDir" ]]; then
-    cd "$telaDir" || exit 1
-    sudo ./install.sh --tela
-    if [[ -f "/usr/share/grub/themes/Tela/background.jpg" ]]; then
-      sudo cp -v /usr/share/grub/themes/Tela/background.jpg /boot/grub/splash0.jpg
-    elif [[ -f "/boot/grub/themes/Tela/background.jpg" ]]; then
-      sudo cp -v /boot/grub/themes/Tela/background.jpg /boot/grub/splash0.jpg
-    fi
-    sudo update-grub
+  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
+    cd "$buildDir" || exit 1
+    sudo ./install.sh --install --background Night.png --resolution 1080p
   fi
 }
 
 updateRainbow() {
   prepareBuild
   if [[ "$1" == "unstable" ]]; then
-    rainbowDir="rainbow-cursor"
+    buildDir="rainbow-cursor"
     git clone --depth 1 https://github.com/Dragon8oy/rainbow-cursor.git
   elif [[ "$1" == "stable" ]]; then
     latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/rainbow-cursor.git |tail -n1)"
@@ -225,10 +219,10 @@ updateRainbow() {
     $extractCommand
 
     rm "$latestVersion".*
-    rainbowDir="rainbow-cursor-${latestVersion/v}"
+    buildDir="rainbow-cursor-${latestVersion/v}"
   fi
-  if [[ -d "/tmp/update-themes/$rainbowDir" ]]; then
-    cd "$rainbowDir" || exit 1
+  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
+    cd "$buildDir" || exit 1
     sudo mkdir -p /usr/share/rainbow-cursor
     sudo cp rainbow-cursor.sh /usr/share/rainbow-cursor
     sudo cp launch-cursor.sh /usr/share/rainbow-cursor
@@ -267,9 +261,9 @@ updateThemes() {
     confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
   fi
   checkDeps "$1"
-  updateTela "$1"
+  updateArgonGrub "$1"
   updateYaru "$1"
-  updateArgon "$1"
+  updateArgonIcons "$1"
   cleanBuild
   setupThemes
   completedMessage "install"
