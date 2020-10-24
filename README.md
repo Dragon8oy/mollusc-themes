@@ -8,7 +8,7 @@
  - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/RiverMountains.png) - `Dragon8oy`
  - [Wallpaper 2](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
- - More wallpapers are contained, but only 2 are listed
+ - More wallpapers are contained, but only 2 are listed, the rest can be found [here](https://github.com/Dragon8oy/argon-wallpapers)
  - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
 
