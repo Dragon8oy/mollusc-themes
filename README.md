@@ -1,20 +1,21 @@
 # dotfiles
  - A collection of customised themes and files for my personal setup
- - Obviously, this isn't designed with different setups in mind, use at your own risk
+ - This isn't designed with different setups in mind
+   - If you use this, bear in mind it may not work
 
 ## Contents:
  - [Ubuntu Fonts](https://design.ubuntu.com/font/) - `Canonical`
  - [Terminal Profile](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/terminal-profile.dconf) - `Dragon8oy`
- - [User icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
- - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/RiverMountains.png) - `Dragon8oy`
- - [Wallpaper 2](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
+ - [User Icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
+ - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
+ - [Wallpaper 2](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/Crystals.png) - `Dragon8oy`
  - More wallpapers are contained, but only 2 are listed, the rest can be found [here](https://github.com/Dragon8oy/argon-wallpapers)
  - [Themes updater](https://github.com/Dragon8oy/dotfiles/blob/master/Components/update-themes) - `Dragon8oy`
  - [MOTD](https://github.com/Dragon8oy/dotfiles/tree/master/Components/motd/update-motd.d) - `Dragon8oy`
 
-## Downloaded content:
+## Downloaded content: `(update-themes)`
  - [Argon Icon Theme](https://github.com/Dragon8oy/argon-icon-theme) - `Dragon8oy`
- - [Tela GRUB Theme](https://github.com/vinceliuice/grub2-themes) - `vinceliuice`
+ - [Argon GRUB Theme](https://github.com/Dragon8oy/argon-grub-themes) - `Dragon8oy`
  - [Yaru Theme](https://github.com/ubuntu/yaru) - `Canonical`
 
 ## Extensions:
