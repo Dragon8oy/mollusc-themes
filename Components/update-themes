@@ -194,7 +194,7 @@ updateArgonGrub() {
   fi
   if [[ -d "/tmp/update-themes/$buildDir" ]]; then
     cd "$buildDir" || exit 1
-    sudo ./install.sh --install --background Crystals.png --resolution 1080p -fs 16
+    sudo ./install.sh --install --background Crystals.png --resolution 1080p -fs 16 -f Unifont.ttf
   fi
 }
 
