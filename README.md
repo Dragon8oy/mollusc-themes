@@ -24,7 +24,7 @@
  - [Hide Activities Button](https://extensions.gnome.org/extension/744/hide-activities-button/)
  - [App Indicator Support](https://extensions.gnome.org/extension/615/appindicator-support/)
  - [Transparent Top Bar](https://extensions.gnome.org/extension/1708/transparent-top-bar/)
- - [Remove App Menu](https://extensions.gnome.org/extension/591/remove-app-menu/)
+ - [Remove App Menu](https://extensions.gnome.org/extension/3906/remove-app-menu/)
  - [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
  - [Open Weather](https://extensions.gnome.org/extension/750/openweather/)
  - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
