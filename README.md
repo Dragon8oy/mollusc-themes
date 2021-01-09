@@ -4,7 +4,6 @@
    - If you use this, bear in mind it may not work
 
 ## Contents:
- - [Ubuntu Fonts](https://design.ubuntu.com/font/) - `Canonical`
  - [Terminal Profile](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/terminal-profile.dconf) - `Dragon8oy`
  - [User Icon](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Misc/UserIcon.png) - `Dragon8oy`
  - [Wallpaper 1](https://github.com/Dragon8oy/dotfiles/blob/master/Components/Wallpapers/NightMountains.png) - `Dragon8oy`
@@ -41,5 +40,4 @@
 
 ## Licensing:
  - Files contained in `Components/Wallpapers/` are licensed under `Creative Commons Attribution Share Alike 4.0`, a copy of this is stored in `Components/Wallpapers/LICENSE.txt`
- - Fonts contained in `Components/Fonts/` are licensed under `Creative Commons Attribution-ShareAlike 3.0 Unported`, a copy of this is stored in `Components/Fonts/LICENSE.txt`
  - All other files, unless specified, are licensed under `GNU GENERAL PUBLIC LICENSE v3`, a copy of this is stored in `LICENSE.txt`
