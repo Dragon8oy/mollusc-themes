@@ -21,30 +21,12 @@ checkDeps() {
   fi
 
   if [[ "$1" == "unstable" ]] || [[ "$1" == "stable" ]]; then #Check for build dependencies
-    if ! command -v grep > /dev/null 2>&1; then
-      echo "Grep missing"
-      depMissing="true"
-    fi
-    if ! command -v sed > /dev/null 2>&1; then
-      echo "Sed missing"
-      depMissing="true"
-    fi
-    if ! command -v make > /dev/null 2>&1; then
-      echo "Make missing"
-      depMissing="true"
-    fi
-    if ! git --version > /dev/null 2>&1; then
-      echo "Git missing"
-      depMissing="true"
-    fi
-    if ! command -v meson > /dev/null 2>&1; then
-      echo "Meson missing"
-      depMissing="true"
-    fi
-    if ! command -v sassc > /dev/null 2>&1; then
-      echo "Sassc missing"
-      depMissing="true"
-    fi
+    for dependency in "grep" "sed" "make" "git" "meson" "sassc"; do
+      if ! command -v "$dependency" > /dev/null 2>&1; then
+        echo "${dependency^} missing"
+        depMissing="true"
+      fi
+    done
     if [[ ! -d "/usr/include/gtk-3.0/" ]]; then
       echo "libgtk-3-dev missing"
       depMissing="true"
@@ -108,16 +90,20 @@ cleanBuild() {
   sudo rm -rf /tmp/update-themes
 }
 
-updateYaru() {
+updateComponent() { #buildDir #projectUrl #projectInstallCommand
   prepareBuild
-  if [[ "$1" == "unstable" ]]; then
-    buildDir="yaru"
-    git clone --depth 1 https://github.com/ubuntu/yaru.git
+  release="$1"
+  projectName="$2"
+  projectUrl="$3"
+  projectInstallCommand="$4"
+  if [[ "$release" == "unstable" ]]; then
+    buildDir="$projectName"
+    git clone --depth 1 "$projectUrl.git"
   elif [[ "$1" == "stable" ]]; then
-    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/ubuntu/yaru.git |grep -v "tags/r[0-9]" |tail -n1)"
+    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" "$projectUrl.git" |grep -v "tags/r[0-9]" |tail -n1)"
     latestVersion="${latestVersion##*tags/}"
 
-    downloadUrl="https://github.com/ubuntu/yaru/archive/$latestVersion"
+    downloadUrl="$projectUrl/archive/$latestVersion"
     if command -v tar > /dev/null 2>&1; then
       extractCommand="tar -xf $latestVersion.tar.gz"
       downloadUrl="$downloadUrl.tar.gz"
@@ -129,8 +115,13 @@ updateYaru() {
     $extractCommand
 
     rm "$latestVersion".*
-    buildDir="yaru-$latestVersion"
+    buildDir="$projectName-${latestVersion/v}"
   fi
+  $projectInstallCommand "$buildDir"
+}
+
+installYaru() { #buildDir
+  buildDir="$1"
   if [[ -d "/tmp/update-themes/$buildDir" ]]; then
     cd "$buildDir" || exit 1
     sudo rm -rf /usr/share/themes/Yaru*
@@ -138,29 +129,8 @@ updateYaru() {
   fi
 }
 
-updateArgonIcons() {
-  prepareBuild
-  if [[ "$1" == "unstable" ]]; then
-    buildDir="argon-icon-theme"
-    git clone --depth 1 https://github.com/Dragon8oy/argon-icon-theme.git
-  elif [[ "$1" == "stable" ]]; then
-    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-icon-theme.git |tail -n1)"
-    latestVersion="${latestVersion##*tags/}"
-
-    downloadUrl="https://github.com/Dragon8oy/argon-icon-theme/archive/$latestVersion"
-    if command -v tar > /dev/null 2>&1; then
-      extractCommand="tar -xf $latestVersion.tar.gz"
-      downloadUrl="$downloadUrl.tar.gz"
-    elif command -v unzip > /dev/null 2>&1; then
-      extractCommand="unzip $latestVersion.zip"
-      downloadUrl="$downloadUrl.zip"
-    fi
-    curl --progress-bar -O -L "$downloadUrl"
-    $extractCommand
-
-    rm "$latestVersion".*
-    buildDir="argon-icon-theme-${latestVersion/v}"
-  fi
+installArgonIcons() { #buildDir
+  buildDir="$1"
   if [[ -d "/tmp/update-themes/$buildDir" ]]; then
     cd "$buildDir" || exit 1
     sudo make uninstall
@@ -169,90 +139,11 @@ updateArgonIcons() {
   fi
 }
 
-updateArgonGrub() {
-  prepareBuild
-  if [[ "$1" == "unstable" ]]; then
-    buildDir="argon-grub-theme"
-    git clone --depth 1 https://github.com/Dragon8oy/argon-grub-theme.git
-  elif [[ "$1" == "stable" ]]; then
-    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/argon-grub-theme.git |tail -n1)"
-    latestVersion="${latestVersion##*tags/}"
-
-    downloadUrl="https://github.com/Dragon8oy/argon-grub-theme/archive/$latestVersion"
-    if command -v tar > /dev/null 2>&1; then
-      extractCommand="tar -xf $latestVersion.tar.gz"
-      downloadUrl="$downloadUrl.tar.gz"
-    elif command -v unzip > /dev/null 2>&1; then
-      extractCommand="unzip $latestVersion.zip"
-      downloadUrl="$downloadUrl.zip"
-    fi
-    curl --progress-bar -O -L "$downloadUrl"
-    $extractCommand
-
-    rm "$latestVersion".*
-    buildDir="argon-grub-theme-$latestVersion"
-  fi
+installArgonGrub() { #buildDir
+  buildDir="$1"
   if [[ -d "/tmp/update-themes/$buildDir" ]]; then
     cd "$buildDir" || exit 1
     sudo ./install.sh --install --background Crystals.png --resolution 1080p --fontcolour "#cccccc,#ffffff" --fontsize 24 --font Terminus.ttf --bold --auto
-  fi
-}
-
-updateRainbow() {
-  prepareBuild
-  if [[ "$1" == "unstable" ]]; then
-    buildDir="rainbow-cursor"
-    git clone --depth 1 https://github.com/Dragon8oy/rainbow-cursor.git
-  elif [[ "$1" == "stable" ]]; then
-    latestVersion="$(git ls-remote --refs --tags --sort="v:refname" https://github.com/Dragon8oy/rainbow-cursor.git |tail -n1)"
-    latestVersion="${latestVersion##*tags/}"
-
-    downloadUrl="https://github.com/Dragon8oy/rainbow-cursor/archive/$latestVersion"
-    if command -v tar > /dev/null 2>&1; then
-      extractCommand="tar -xf $latestVersion.tar.gz"
-      downloadUrl="$downloadUrl.tar.gz"
-    elif command -v unzip > /dev/null 2>&1; then
-      extractCommand="unzip $latestVersion.zip"
-      downloadUrl="$downloadUrl.zip"
-    fi
-    curl --progress-bar -O -L "$downloadUrl"
-    $extractCommand
-
-    rm "$latestVersion".*
-    buildDir="rainbow-cursor-${latestVersion/v}"
-  fi
-  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
-    cd "$buildDir" || exit 1
-    sudo mkdir -p /usr/share/rainbow-cursor
-    sudo cp rainbow-cursor.sh /usr/share/rainbow-cursor
-    sudo cp launch-cursor.sh /usr/share/rainbow-cursor
-    if [[ "$USER" == "root" ]] || [[ "$USER" == "" ]]; then
-      read -r -p "Are you sure you want to install rainbow-cursor as root? [y/N] (Only root will see the cursor) " response
-      if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-        installPath="/root/.bashrc"
-      else
-        read -r -p "Do you want to install as a different user instead? [y/N] " response
-        if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-          echo "Enter the name of the user to install for:"
-          read -r targetUser
-          installPath="/home/$targetUser/.bashrc"
-        else
-          return
-        fi
-      fi
-    else
-      installPath="/home/$USER/.bashrc"
-    fi
-    if [[ -f "$installPath" ]]; then
-      if grep -q "/usr/share/rainbow-cursor/" "$installPath"; then
-        return
-      else
-        echo "#Add rainbow cursor" >> "$installPath"
-        echo ". /usr/share/rainbow-cursor/launch-cursor.sh" >> "$installPath"
-      fi
-    else
-      echo "Couldn't find \"$installPath\""
-    fi
   fi
 }
 
@@ -261,9 +152,9 @@ updateThemes() {
     confirm "Themes will be updated to unstable versions. Are you sure? [y/N] "
   fi
   checkDeps "$1"
-  updateArgonGrub "$1"
-  updateYaru "$1"
-  updateArgonIcons "$1"
+  updateComponent "$1" "yaru" "https://github.com/ubuntu/yaru" "installYaru"
+  updateComponent "$1" "argon-icon-theme" "https://github.com/Dragon8oy/argon-icon-theme" "installArgonIcons"
+  updateComponent "$1" "argon-grub-theme" "https://github.com/Dragon8oy/argon-grub-theme" "installArgonGrub"
   cleanBuild
   setupThemes
   completedMessage "install"
@@ -278,8 +169,7 @@ if [[ "$1" != "" ]]; then
     echo "-s | --stable               : Update themes to latest stable versions"; \
     echo "Program written by: Dragon8oy"; exit;;
   -u|--unstable) updateThemes "unstable"; exit;;
-  -i|--install|--stable) updateThemes "stable"; exit;;
-  -r|--rainbow) updateRainbow "unstable"; cleanBuild; exit;;
+  -i|--install|-s|--stable) updateThemes "stable"; exit;;
   *) echo "Unknown parameter passed: $1"; exit 1;;
   esac
 else
