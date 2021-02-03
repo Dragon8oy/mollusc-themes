@@ -117,34 +117,25 @@ updateComponent() { #buildDir #projectUrl #projectInstallCommand
     rm "$latestVersion".*
     buildDir="$projectName-${latestVersion/v}"
   fi
-  $projectInstallCommand "$buildDir"
-}
-
-installYaru() { #buildDir
-  buildDir="$1"
   if [[ -d "/tmp/update-themes/$buildDir" ]]; then
     cd "$buildDir" || exit 1
-    sudo rm -rf /usr/share/themes/Yaru*
-    sudo ./bootstrap.sh -b
+    $projectInstallCommand "$buildDir"
   fi
 }
 
-installArgonIcons() { #buildDir
-  buildDir="$1"
-  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
-    cd "$buildDir" || exit 1
-    sudo make uninstall
-    make index
-    sudo make install; sudo make refresh
-  fi
+installYaru() {
+  sudo rm -rf /usr/share/themes/Yaru*
+  sudo ./bootstrap.sh -b
 }
 
-installArgonGrub() { #buildDir
-  buildDir="$1"
-  if [[ -d "/tmp/update-themes/$buildDir" ]]; then
-    cd "$buildDir" || exit 1
-    sudo ./install.sh --install --background Crystals.png --resolution 1080p --fontcolour "#cccccc,#ffffff" --fontsize 24 --font Terminus.ttf --bold --auto
-  fi
+installArgonIcons() {
+  sudo make uninstall
+  make index
+  sudo make install; sudo make refresh
+}
+
+installArgonGrub() {
+  sudo ./install.sh --install --background Crystals.png --resolution 1080p --fontcolour "#cccccc,#ffffff" --fontsize 24 --font Terminus.ttf --bold --auto
 }
 
 updateThemes() {
