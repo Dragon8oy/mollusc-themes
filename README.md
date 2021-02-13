@@ -29,6 +29,7 @@
 ## Tweaks (Changes not previously listed):
  - Add /sbin to $PATH with ~/.bashrc
  - Set gsettings values
+ - Enable Freesync and overclocking on Nvidia (The Freesync config will need modification to match different monitors)
 
 ## To-do:
  - Add dash to dock config to repo and customisation list
