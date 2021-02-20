@@ -68,7 +68,7 @@ setupThemes() {
       echo "User-themes not installed correctly, or an error occured"
       return
     fi
-    gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru-dark
+    gsettings --schemadir "${schemasPath///gschemas.compiled}" set org.gnome.shell.extensions.user-theme name Yaru
   fi
   gsettings set org.gnome.desktop.interface gtk-theme Yaru-dark
   gsettings set org.gnome.desktop.interface icon-theme Argon
