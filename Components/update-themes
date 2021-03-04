@@ -61,7 +61,7 @@ completedMessage() {
 
 setupThemes() {
   if gsettings list-schemas |grep user-theme > /dev/null 2>&1; then
-    gsettings set org.gnome.shell.extensions.user-theme name Yaru-dark
+    gsettings set org.gnome.shell.extensions.user-theme name Yaru
   else
     schemasPath=$(find / -iname 'gschemas.compiled' 2>&1 |grep -v "Permission denied" |grep user-theme@gnome-shell-extensions.gcampax.github.com)
     if [[ "$schemasPath" == "" ]]; then
